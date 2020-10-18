@@ -2,35 +2,41 @@ class UsersController < ApplicationController
   before_action :check_create_params, :only => [:create]
   before_action :check_show_params, :only => [:show]
   before_action :check_update_params, :only => [:update]
-
+  
   def create
+    created_user = ::User::CreateService.new(:params => params).call
+
     render :json => { 
-        message: "Usuário criado com sucesso."
-      }, status: 200 and return
+      message: "Usuário criado com sucesso."
+    }, status: 200 and return if created_user.valid?
+
+    render :json => { 
+      message: created_user.errors.full_messages
+    }, status: 400 and return
   end
 
   def show
-    render :json => { 
-        user: {
-          id: params[:id],
-          name: "John Doe",
-          email: "john@doe.com",
-          birthday: Time.zone.now - 20.years,
-          gender: User.gender.male.value
-        }
-      }, status: 200 and return
+    render :json => {
+      user: {
+        id: params[:id],
+        name: "John Doe",
+        email: "john@doe.com",
+        birthday: Time.zone.now - 20.years,
+        gender: User.gender.male.value
+      }
+    }, status: 200 and return
   end
 
   def update
     render :json => { 
-        message: "Usuário alterado com sucesso."
-      }, status: 200 and return
+      message: "Usuário alterado com sucesso."
+    }, status: 200 and return
   end
 
   def index
     render :json => {
-        users: []
-      }, status: 200 and return
+      users: []
+    }, status: 200 and return
   end
 
   def check_create_params

@@ -11,7 +11,7 @@ class User < ApplicationRecord
     female: 2
   }, predicates: true, scope: true
 
-  validates :email, presence: true, length: { minimum: 5, maximum: 100, too_long: "É permitido no máximo 100 caracteres", too_short: "É necessário pelo menos 5 carácteres" }
+  validates :email, presence: true, uniqueness: { message: "já está em uso" }, length: { minimum: 5, maximum: 100, too_long: "É permitido no máximo 100 caracteres", too_short: "É necessário pelo menos 5 carácteres" }
   validates :name, presence: true
 
   def min_name_length
