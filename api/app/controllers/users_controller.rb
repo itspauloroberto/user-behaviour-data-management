@@ -16,15 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    render :json => {
-      user: {
-        id: params[:id],
-        name: "John Doe",
-        email: "john@doe.com",
-        birthday: Time.zone.now - 20.years,
-        gender: User.gender.male.value
-      }
-    }, status: 200 and return
+    found_user = ::User::ShowService.new(:params => params).call
+    render :json => { 
+      message: "Não foi possível encontrar um Usuário com este ID."
+    }, status: 400 and return if found_user.nil?
+    render :json => UserShowSerializer.new(found_user).to_json, status: 200 and return
   end
 
   def update
