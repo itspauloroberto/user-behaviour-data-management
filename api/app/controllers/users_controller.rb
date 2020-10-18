@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :check_create_params, :only => [:create]
   before_action :check_show_params, :only => [:show]
   before_action :check_update_params, :only => [:update]
-  
+
   def create
     created_user = ::User::CreateService.new(:params => params).call
 
@@ -24,9 +24,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    render :json => { 
-      message: "Usuário alterado com sucesso."
-    }, status: 200 and return
+    update_user = ::User::UpdateService.new(:params => params).call
+    render :json => {
+      message: "Não foi possível alterar os dados deste Usuário."
+    }, status: 400 and return if update_user.nil?
+    render :json => { message: "Dados alterados com sucesso." }, status: 200 and return
   end
 
   def index
