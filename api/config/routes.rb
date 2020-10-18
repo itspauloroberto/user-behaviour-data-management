@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :users do
+    post '', action: 'create'
+    get '', action: 'index'
+    get ':id', action: 'show'
+    patch ':id', action: 'update'
+  end
 end
