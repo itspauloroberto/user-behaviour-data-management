@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def index
     render :json => {
-      users: []
+      users: ::User::IndexService.new(:params => params).call
     }, status: 200 and return
   end
 
