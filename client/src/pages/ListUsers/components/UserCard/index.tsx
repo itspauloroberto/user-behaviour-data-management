@@ -3,7 +3,6 @@ import { Card, Avatar, Typography } from 'antd';
 import {
   EditOutlined,
   EllipsisOutlined,
-  SettingOutlined
 } from '@ant-design/icons';
 import { User } from '../../../../models/users';
 
