@@ -35,7 +35,6 @@ function UserCard({ user: { name, email, gender } }: UserCardProps) {
         alignItems: 'center'
       }}
       actions={[
-        <SettingOutlined key="setting" />,
         <EditOutlined key="edit" />,
         <EllipsisOutlined key="ellipsis" />
       ]}
