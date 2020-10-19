@@ -1,4 +1,4 @@
-import { UsersList } from '../../../../models/users';
+import { User } from '../../../../models/users';
 
 export enum Types {
   SET_FETCHING = 'USERS_LIST_SET_FETCHING',
@@ -7,5 +7,5 @@ export enum Types {
 
 export interface State {
   readonly isFetching: boolean;
-  readonly list: Array<UsersList>;
+  readonly list: Array<User>;
 }

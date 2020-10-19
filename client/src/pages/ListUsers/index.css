@@ -1,0 +1,11 @@
+.ant-skeleton.card-skeleton {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.users-list .ant-list-items {
+  display: flex;
+}
