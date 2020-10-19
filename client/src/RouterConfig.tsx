@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
+  HomeFilled,
   UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons';
 import {
   BrowserRouter as Router,
@@ -31,10 +31,10 @@ function AppRouter(){
         <Sider width={150} trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
+            <Menu.Item key="1" icon={<HomeFilled />}>
               <Link to="/">Home</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+            <Menu.Item key="2" icon={<UserOutlined />}>
               <Link to="/users">See users</Link>
             </Menu.Item>
           </Menu>
