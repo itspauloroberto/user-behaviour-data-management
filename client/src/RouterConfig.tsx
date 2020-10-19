@@ -4,13 +4,13 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import ListUsers from './pages/ListUsers'
 
 const Index = () => <h2>Home</h2>;
-const Users = () => <h2>User list</h2>;
 const NewUser = () => <h2>User signup</h2>;
 const UserDetails = () => <h2>Details for user ID X</h2>;
 
-const RouterConfig = () => (
+const AppRouter = () => (
   <Router>
     <div>
       <nav>
@@ -25,11 +25,11 @@ const RouterConfig = () => (
       </nav>
 
       <Route path="/" exact component={Index} />
-      <Route path="/users" exact component={Users} />
+      <Route path="/users" exact component={ListUsers} />
       <Route path="/users/new" exact component={NewUser} />
       <Route path="/users/:id" component={UserDetails} />
     </div>
   </Router>
 );
 
-export default RouterConfig;
+export default AppRouter;
