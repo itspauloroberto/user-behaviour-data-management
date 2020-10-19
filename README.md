@@ -1,6 +1,6 @@
 # UBDM (user-behaviour-data-management)
 
-This project is inspired on a coding test of Ignição Digital company. It's meant to be a application that does manage user collected data by using tags.
+This project is inspired on a coding test. It's meant to be a application that does manage user collected data by using tags.
 
 ## Useful informations down here
 
