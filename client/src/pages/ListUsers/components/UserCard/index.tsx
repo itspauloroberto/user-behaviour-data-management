@@ -1,9 +1,6 @@
 import React from 'react';
 import { Card, Avatar, Typography } from 'antd';
-import {
-  EditOutlined,
-  EllipsisOutlined
-} from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { User } from '../../../../models/users';
 
 interface UserCardProps {
