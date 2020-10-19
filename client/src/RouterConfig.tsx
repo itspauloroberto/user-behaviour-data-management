@@ -1,35 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Layout, Menu } from 'antd';
+import {
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
+import AppLayout from './components/AppLayout';
 import ListUsers from './pages/ListUsers'
 
-const Index = () => <h2>Home</h2>;
-const NewUser = () => <h2>User signup</h2>;
-const UserDetails = () => <h2>Details for user ID X</h2>;
+function AppRouter(){
 
-const AppRouter = () => (
-  <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/users">See users</Link>
-          </li>
-        </ul>
-      </nav>
+  const { Sider } = Layout;
 
-      <Route path="/" exact component={Index} />
-      <Route path="/users" exact component={ListUsers} />
-      <Route path="/users/new" exact component={NewUser} />
-      <Route path="/users/:id" component={UserDetails} />
-    </div>
-  </Router>
-);
+  const [collapsed, setCollapsed] = useState(false);
+
+  const Index = () => pageWithLayout(<h2>Home</h2>);
+  const NewUser = () => pageWithLayout(<h2>User signup</h2>);
+  const UserDetails = () => pageWithLayout(<h2>Details for user ID X</h2>);
+
+  const pageWithLayout = (page: JSX.Element) => <AppLayout mainContent={page} collapsed={collapsed} setCollapsed={setCollapsed} />
+  const ListUsersWithLayout = () => pageWithLayout(<ListUsers />);
+
+  return (
+    <Router>
+      <Layout>
+        <Sider width={150} trigger={null} collapsible collapsed={collapsed}>
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1" icon={<UserOutlined />}>
+              <Link to="/">Home</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+              <Link to="/users">See users</Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Route path="/" exact component={Index} />
+        <Route path="/users" exact component={ListUsersWithLayout} />
+        <Route path="/users/new" exact component={NewUser} />
+        <Route path="/users/:id" component={UserDetails} />
+      </Layout>
+    </Router>
+  );
+};
 
 export default AppRouter;
