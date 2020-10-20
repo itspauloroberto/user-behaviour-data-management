@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_create_params, :only => [:create]
-  before_action :check_show_params, :only => [:show]
+  before_action :check_show_params, :only => [:show, :delete]
   before_action :check_update_params, :only => [:update]
 
   skip_before_action :verify_authenticity_token
@@ -37,6 +37,14 @@ class UsersController < ApplicationController
     render :json => {
       users: ::User::IndexService.new(:params => params).call
     }, status: 200 and return
+  end
+
+  def delete
+    update_user = ::User::UpdateService.new(:params => { id: params[:id], enabled: false }).call
+    render :json => {
+      message: "Não foi possível excluir este Usuário."
+    }, status: 400 and return if update_user.nil?
+    render :json => { message: "Usuário excluido com sucesso." }, status: 200 and return
   end
 
   def check_create_params

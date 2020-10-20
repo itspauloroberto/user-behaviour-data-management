@@ -8,7 +8,7 @@ class User
     end
 
     def call
-      users = User.paginate(page: page, per_page: per_page)
+      users = User.where(:enabled => true).paginate(page: page, per_page: per_page)
       return users.order(:id).map { |user| UserShowSerializer.new(user) } if users.length
       []
     end
