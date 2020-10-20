@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Avatar, Typography, Input, Select } from 'antd';
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { User, UserGenderEnum } from '../../../../models/users';
 import { useDispatch } from 'react-redux';
 import useTypedSelector from '../../../../hooks/useTypedSelector';
 import editUser from '../../../../thunks/users/edit';
+import removeUser from '../../../../thunks/users/remove';
 import fetchUsers from '../../../../thunks/users/list';
 import { SelectValue } from 'antd/lib/select';
 
@@ -21,6 +22,7 @@ function UserCard({ user }: UserCardProps) {
   const [initials, setInitials] = useState('');
 
   const editError = useTypedSelector(({ users }) => users.edit.error);
+  const removeError = useTypedSelector(({ users }) => users.remove.error);
   const list = useTypedSelector(({ users }) => users.list.list);
 
   const dispatch = useDispatch();
@@ -48,6 +50,12 @@ function UserCard({ user }: UserCardProps) {
     setEditing(!isEditing);
   };
 
+  const askForUserRemoval = () => {
+    if (window.confirm("Tem certeza que deseja remover este Usuário?"))
+      dispatch(removeUser(user));
+  }
+
+
   useEffect(() => generateNameInitials(), [list])
 
   useEffect(() => {
@@ -55,9 +63,9 @@ function UserCard({ user }: UserCardProps) {
   }, [user]);
 
   useEffect(() => {
-    if (editError)
+    if (editError || !removeError)
       dispatch(fetchUsers());
-  }, [editError])
+  }, [editError, removeError])
 
   return (
     <Card
@@ -70,7 +78,7 @@ function UserCard({ user }: UserCardProps) {
       }}
       actions={[
         <EditOutlined key="edit" onClick={toggleEditingCard} />,
-        <EllipsisOutlined key="ellipsis" />
+        <DeleteOutlined key="delete" onClick={askForUserRemoval} />
       ]}
     >
       <>
