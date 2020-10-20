@@ -8,4 +8,9 @@
 
 .users-list .ant-list-items {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.users-list .ant-list-items .ant-card {
+  margin-bottom: 10px;
 }
