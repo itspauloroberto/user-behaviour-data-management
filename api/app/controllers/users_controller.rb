@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :check_show_params, :only => [:show]
   before_action :check_update_params, :only => [:update]
 
+  skip_before_action :verify_authenticity_token
+
   def create
     created_user = ::User::CreateService.new(:params => params).call
 
