@@ -18,6 +18,7 @@ class User
       user.email = params[:email] if params[:email].present?
       user.birthday = params[:birthday] if params[:birthday].present?
       user.gender = params[:gender] if params[:gender].present?
+      user.enabled = params[:enabled] if !params[:enabled].nil?
       user.save ? user : nil
     end
 
