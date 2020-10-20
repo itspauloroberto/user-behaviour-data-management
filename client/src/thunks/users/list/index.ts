@@ -1,6 +1,7 @@
 import { API } from '../../../config/axios';
 import { UsersList } from '../../../models/users';
 import { USERS } from '../../../routes';
+import { setError } from '../../../store/ducks/users/edit/actions';
 import {
   setFetching,
   setList,
@@ -19,6 +20,7 @@ const fetchUsers = (): AppThunk => {
       dispatch(setList(users));
     } finally {
       dispatch(setFetching(false));
+      dispatch(setError(false));
     }
   };
 };
